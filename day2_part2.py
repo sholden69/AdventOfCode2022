@@ -31,11 +31,11 @@ score=0
 for round in lines:
     elf,outcome=round
     me=select_move(elf,outcome)
-    print("elf plays",elf,"outcome",outcome,"my move",me)
+   # print("elf plays",elf,"outcome",outcome,"my move",me)
     round_score=pair_scores[elf+me]+item_scores[me]
-    #print ("Round",n,":",me," ",elf," my score:", round_score)
+    print ("Round",n,":",me," ",elf," my score:", round_score)
     score+=round_score
     n+=1
-print("final score:", score)
+print("final score:", score, "after round",n-1)
 
 

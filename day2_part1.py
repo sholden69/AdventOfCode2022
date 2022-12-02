@@ -21,6 +21,6 @@ for round in lines:
     #print ("Round",n,":",me," ",elf," my score:", round_score)
     score+=round_score
     n+=1
-print("final score:", score)
+print("final score:", score, "after round",n-1)
 
 
