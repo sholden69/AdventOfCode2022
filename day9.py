@@ -13,45 +13,7 @@ class Rope:
         
     def logMove(self):
         self.tailVisits.add(str(self.tx)+":"+str(self.ty))
-
-    def adjustTail(self):
-        if (abs(self.hx-self.tx)>1)  or (abs(self.hy-self.ty)>1):
-            #need to move the tail
-            if self.tx==self.hx:
-                #in same row hy-ty will be +/-2 
-                self.ty+=(self.hy-self.ty)//2
-            elif self.ty==self.hy:
-                #in same column hx-tx will be +/- 2
-                self.tx+=(self.hx-self.tx)//2
-            else:
-                #diagonal move
-                #print("diagonal")
-                if abs(self.hy-self.ty)==2:
-                    if self.tx<self.hx:
-                        self.tx+=1
-                        self.ty+=1
-                    else:
-                        self.tx-=1
-                        self.ty-=1
-                elif abs(self.hx-self.tx)==2:
-                    if self.hx<self.tx:
-                        self.tx-=1
-                        self.ty+=1
-                    else:
-                        self.tx+=1
-                        self.ty-=1
-        return None
-
-    def moveMe(self,dir):
-    # meat will go here...
-        match dir :
-            case "U" : self.hy+=1
-            case "D" : self.hy-=1
-            case "L" : self.hx-=1
-            case "R" : self.hx+=1
-        self.adjustTail()
-        self.logMove()
-        #print("head is at",self.hx,self.hy," tail is at",self.tx,self.ty)
+        #upddate the min/max vars for the gridPlot
         if self.hx<self.minx:
             self.minx=self.hx
         if self.hx>self.maxx:
@@ -60,6 +22,46 @@ class Rope:
             self.miny=self.hy
         if self.hy>self.maxy:
             self.maxy=self.hy
+
+    def adjustTail(self):       
+        #adjust diagonal first first as can be cumulative. 2 apart and on different rows + cols
+        if (abs(self.hy-self.ty)==2 or abs(self.hx-self.tx)==2) and (self.tx!=self.hx) and (self.ty!=self.hy): 
+            #print("diagonal")
+            if self.tx>self.hx and self.ty>self.hy: #top is top right of heead
+                self.tx+=-1
+                self.ty+=-1
+            elif self.tx>self.hx and self.ty<self.hy: #tail is bottom right of head
+                self.tx+=-1
+                self.ty+=1
+            elif self.tx<self.hx and self.ty<self.hy: #tail is bottom left of head
+                self.tx+=1
+                self.ty+=1
+            else: #tail is top left of head
+                self.tx+=1
+                self.ty+=-1
+
+        # Check if more thn one space apart on same row or column and move closer
+        if (abs(self.hx-self.tx)>1):
+            self.tx+=(self.hx-self.tx)//2   
+        if (abs(self.hy-self.ty)>1):
+            self.ty+=(self.hy-self.ty)//2
+        return None
+
+
+
+        
+       
+
+    def moveMe(self,dir):
+    # meat will go here...
+        #print("head is at",self.hx,self.hy," tail is at",self.tx,self.ty,"moving",dir)
+        match dir :
+            case "U" : self.hy+=1
+            case "D" : self.hy-=1
+            case "L" : self.hx-=1
+            case "R" : self.hx+=1
+        self.adjustTail()
+        self.logMove()
         return None
 
     def moveCount(self) -> int:
@@ -84,14 +86,14 @@ class Rope:
 
 def part1():
     rp=Rope()
-    with open("Day9TestInput.txt") as file:
+    with open("Day9Input.txt") as file:
         for line in file:
             dir,cnt=line.rstrip().split() 
             for i in range(int(cnt)):
                 rp.moveMe(dir)
-                rp.gridPrint()
+                #rp.gridPrint()
     print("tail visited",rp.moveCount()," unique locations")
-   # rp.showVists()
+    #rp.showVists()
 
 
 part1()
