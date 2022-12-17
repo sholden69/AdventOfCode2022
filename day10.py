@@ -16,8 +16,6 @@ class CPU:
                 else:
                     self.instrs.append([dir,''])
 
-                
-
     def runProgram(self):
         cycle=1
         for i,instr in enumerate(self.instrs):
