@@ -1,0 +1,153 @@
+3 addx 15 16
+5 addx -11 5
+7 addx 6 11
+9 addx -3 8
+11 addx 5 13
+13 addx -1 12
+15 addx -8 4
+17 addx 13 17
+19 addx 4 21
+special moment 20 420
+20 noop  21
+22 addx -1 20
+24 addx 5 25
+26 addx -1 24
+28 addx 5 29
+30 addx -1 28
+32 addx 5 33
+34 addx -1 32
+36 addx 5 37
+38 addx -1 36
+40 addx -35 1
+42 addx 1 2
+44 addx 24 26
+46 addx -19 7
+48 addx 1 8
+50 addx 16 24
+52 addx -11 13
+53 noop  13
+54 noop  13
+56 addx 21 34
+58 addx -15 19
+59 noop  19
+special moment 60 1140
+60 noop  19
+62 addx -3 16
+64 addx 9 25
+66 addx 1 26
+68 addx -3 23
+70 addx 8 31
+72 addx 1 32
+74 addx 5 37
+75 noop  37
+76 noop  37
+77 noop  37
+78 noop  37
+79 noop  37
+81 addx -36 1
+82 noop  1
+84 addx 1 2
+86 addx 7 9
+87 noop  9
+88 noop  9
+89 noop  9
+91 addx 2 11
+93 addx 6 17
+94 noop  17
+95 noop  17
+96 noop  17
+97 noop  17
+98 noop  17
+special moment 100 1700
+100 addx 1 18
+101 noop  18
+102 noop  18
+104 addx 7 25
+106 addx 1 26
+107 noop  26
+109 addx -13 13
+111 addx 13 26
+113 addx 7 33
+114 noop  33
+116 addx 1 34
+118 addx -33 1
+119 noop  1
+120 noop  1
+121 noop  1
+123 addx 2 3
+124 noop  3
+125 noop  3
+126 noop  3
+128 addx 8 11
+129 noop  11
+131 addx -1 10
+133 addx 2 12
+135 addx 1 13
+136 noop  13
+138 addx 17 30
+special moment 140 4200
+140 addx -9 21
+142 addx 1 22
+144 addx 1 23
+146 addx -3 20
+148 addx 11 31
+149 noop  31
+150 noop  31
+152 addx 1 32
+153 noop  32
+155 addx 1 33
+156 noop  33
+157 noop  33
+159 addx -13 20
+161 addx -19 1
+163 addx 1 2
+165 addx 3 5
+167 addx 26 31
+169 addx -30 1
+171 addx 12 13
+173 addx -1 12
+175 addx 3 15
+177 addx 1 16
+178 noop  16
+179 noop  16
+special moment 180 2880
+180 noop  16
+182 addx -9 7
+184 addx 18 25
+186 addx 1 26
+188 addx 2 28
+189 noop  28
+190 noop  28
+192 addx 9 37
+193 noop  37
+194 noop  37
+195 noop  37
+197 addx -1 36
+199 addx 2 38
+201 addx -37 1
+203 addx 1 2
+205 addx 3 5
+206 noop  5
+208 addx 15 20
+210 addx -21 -1
+212 addx 22 21
+214 addx -6 15
+216 addx 1 16
+217 noop  16
+219 addx 2 18
+special moment 220 3960
+221 addx 1 19
+222 noop  19
+224 addx -10 9
+225 noop  9
+226 noop  9
+228 addx 20 29
+230 addx 1 30
+232 addx 2 32
+234 addx 2 34
+236 addx -6 28
+238 addx -11 17
+239 noop  17
+240 noop  17
+241 noop  17
+total idx on special cycles 14300
