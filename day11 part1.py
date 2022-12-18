@@ -1,5 +1,6 @@
 from collections import namedtuple
 from itertools import islice
+import time
 
 class Monkey:
     def __init__(self):
@@ -111,11 +112,13 @@ for round in range(1,21):
             itm=mky.popItem()
             if itm is None:
                 break
-            # apply the worry rule to scale up itm and then divide by 3
             itm=mky.applyWorryRule(itm) // 3
            
             # find out which monkey to throw to             
             mylist[mky.applyThrowRule(itm) ].pushItem(itm) 
+
+for mky in mylist:
+    print(mky.getInspections())
         
 top2=sorted([mky.getInspections() for mky in mylist],reverse=True)[0:2]
 print("Monkey Busines",top2[0]*top2[1])
