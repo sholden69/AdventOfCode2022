@@ -145,7 +145,8 @@ def part1Run(mklist, rounds):
 mylist=buildMonkeyList('Day11Input.txt')    
 #part1Run(mylist,20)
 
-itemPaths={}
+itemPaths={} #stores the route each start item takes
+loopIndex={}
 for idx,mky in enumerate(mylist):
     for itm in mky.getItems():
         # first mky, remainder
@@ -161,16 +162,44 @@ for idx,mky in enumerate(mylist):
             nextMky,thisRem=mylist[thisMky].applyThrowRule2(itm)
             # need to scan through to see whther we have thisMyy, thisRem
             breakOut=False
-            for items in itemPaths[thisValue]:
+            for idx,items in enumerate(itemPaths[thisValue]):
                 if items[0]==thisMky and items[1]==thisRem:
+                    loopIndex[thisValue]=idx #store
                     breakOut=True
                     break
-            itemPaths[thisValue].append([thisMky,thisRem])
-            print("start item",thisValue,"monkey",thisMky,"Remainder",thisRem)
+            #print("start item",thisValue,"monkey",thisMky,"Remainder",thisRem)
             if breakOut:
                 break
-for items in itemPaths:
-    print(items)
+            itemPaths[thisValue].append([thisMky,thisRem])
+for item in itemPaths.keys():
+    print("starting item",item,itemPaths[item],"loop index",loopIndex[item])
+ 
+rounds = 1
+nMkys=len(mylist)
+inspections=[0 for i in range(nMkys+1)]
+itemIdx={}
+for i in itemPaths.keys():  #keep track of where we are in itemPaths for each item
+    itemIdx[i]=1
+for round in range(1,rounds+1):
+    for mkyNum,mky in enumerate(mylist):
+        while True:
+            itm=mky.popItem()
+            if itm is None:
+                break
+            thisitemIdx=itemIdx[itm]
+            if thisitemIdx==len(itemPaths[itm]):
+                thisItemIdx=loopIndex[itm]
+            thisList=itemPaths[itm]
+            nextDest=thisList[thisitemIdx]
+            nextmky=nextDest[0]
+            itemIdx[itm]+=1           
+            inspections[mkyNum]+=1
+            mylist[nextMky].pushItem(itm) 
 
-
+# list out the inspection count
+for mky in mylist:
+    print(mky.getInspections())
+        
+top2=sorted([mky.getInspections() for mky in mylist],reverse=True)[0:2]
+print("Monkey Busines",top2[0]*top2[1])
 
