@@ -142,7 +142,7 @@ def part1Run(mklist, rounds):
 
 
 
-mylist=buildMonkeyList('Day11Input.txt')    
+mylist=buildMonkeyList('Day11TestInput.txt')    
 #part1Run(mylist,20)
 
 itemPaths={} #stores the route each start item takes
@@ -176,30 +176,34 @@ for item in itemPaths.keys():
  
 rounds = 1
 nMkys=len(mylist)
-inspections=[0 for i in range(nMkys+1)]
+inspections=[0 for i in range(nMkys)]
 itemIdx={}
 for i in itemPaths.keys():  #keep track of where we are in itemPaths for each item
     itemIdx[i]=1
 for round in range(1,rounds+1):
     for mkyNum,mky in enumerate(mylist):
+        print("monkey",mkyNum,"items",mky.getItems())
         while True:
             itm=mky.popItem()
             if itm is None:
                 break
-            thisitemIdx=itemIdx[itm]
-            if thisitemIdx==len(itemPaths[itm]):
+            print("item",itm)
+            thisItemIdx=itemIdx[itm] #how far down its routing path are we
+            thisList=itemPaths[itm]  #get the routing list for ths item
+            #now check where we are in the list and loop back to the loo item if at end
+            ln=len(thisList)
+            if thisItemIdx>=(ln-1):
                 thisItemIdx=loopIndex[itm]
-            thisList=itemPaths[itm]
-            nextDest=thisList[thisitemIdx]
-            nextmky=nextDest[0]
+                itemIdx[itm]=thisItemIdx
+            nextDest=thisList[thisItemIdx]
+            nextMky=nextDest[0]
             itemIdx[itm]+=1           
             inspections[mkyNum]+=1
             mylist[nextMky].pushItem(itm) 
+            print("passed to monkey",nextMky)
 
 # list out the inspection count
-for mky in mylist:
-    print(mky.getInspections())
-        
-top2=sorted([mky.getInspections() for mky in mylist],reverse=True)[0:2]
+print("inspections",inspections)
+top2=sorted(inspections,reverse=True)[0:2]
 print("Monkey Busines",top2[0]*top2[1])
 
