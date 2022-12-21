@@ -1,0 +1,91 @@
+*** Lets Start
+round 1
+monkey Starting items:60 71 81 80 
+ Worry Rule:old * 19
+ Divisor:23
+ True\False:2 3 [60, 71, 81, 80]
+monkey Starting items:77 1504 1865 6244 3603 9412 
+ Worry Rule:old + 6
+ Divisor:19
+ True\False:2 0 [77, 1504, 1865, 6244, 3603, 9412]
+monkey Starting items:
+ Worry Rule:old * old
+ Divisor:13
+ True\False:1 3 []
+monkey Starting items:
+ Worry Rule:old + 3
+ Divisor:17
+ True\False:0 1 []
+round 2
+monkey Starting items:83 1510 1871 6250 3609 9418 
+ Worry Rule:old * 19
+ Divisor:23
+ True\False:2 3 [83, 1510, 1871, 6250, 3609, 9418]
+monkey Starting items:1143 1352 1542 1523 
+ Worry Rule:old + 6
+ Divisor:19
+ True\False:2 0 [1143, 1352, 1542, 1523]
+monkey Starting items:
+ Worry Rule:old * old
+ Divisor:13
+ True\False:1 3 []
+monkey Starting items:
+ Worry Rule:old + 3
+ Divisor:17
+ True\False:0 1 []
+round 3
+monkey Starting items:1149 1358 1548 1529 
+ Worry Rule:old * 19
+ Divisor:23
+ True\False:2 3 [1149, 1358, 1548, 1529]
+monkey Starting items:1580 28693 35552 118753 68574 178945 
+ Worry Rule:old + 6
+ Divisor:19
+ True\False:2 0 [1580, 28693, 35552, 118753, 68574, 178945]
+monkey Starting items:
+ Worry Rule:old * old
+ Divisor:13
+ True\False:1 3 []
+monkey Starting items:
+ Worry Rule:old + 3
+ Divisor:17
+ True\False:0 1 []
+round 4
+monkey Starting items:1586 28699 35558 118759 68580 178951 
+ Worry Rule:old * 19
+ Divisor:23
+ True\False:2 3 [1586, 28699, 35558, 118759, 68580, 178951]
+monkey Starting items:21834 25805 29415 29054 
+ Worry Rule:old + 6
+ Divisor:19
+ True\False:2 0 [21834, 25805, 29415, 29054]
+monkey Starting items:
+ Worry Rule:old * old
+ Divisor:13
+ True\False:1 3 []
+monkey Starting items:
+ Worry Rule:old + 3
+ Divisor:17
+ True\False:0 1 []
+round 5
+monkey Starting items:21840 25811 29421 29060 
+ Worry Rule:old * 19
+ Divisor:23
+ True\False:2 3 [21840, 25811, 29421, 29060]
+monkey Starting items:30137 545284 2256424 1303023 3400072 456438062407 
+ Worry Rule:old + 6
+ Divisor:19
+ True\False:2 0 [30137, 545284, 2256424, 1303023, 3400072, 456438062407]
+monkey Starting items:
+ Worry Rule:old * old
+ Divisor:13
+ True\False:1 3 []
+monkey Starting items:
+ Worry Rule:old + 3
+ Divisor:17
+ True\False:0 1 []
+22
+24
+4
+26
+Monkey Busines 624
