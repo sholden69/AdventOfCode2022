@@ -60,6 +60,8 @@ def lrComp(left,right):
             success= lrComp(cmpL[0],cmpR)
         elif tL is int and tR is list:
             success= lrComp(cmpL,cmpR[0])
+        else: #both lists
+            success=lrComp(cmpL,cmpR)
         i+=1
 
     return success
