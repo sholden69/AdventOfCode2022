@@ -1,85 +1,69 @@
-
-import ast
-
-def strToList(aStr):
-    s1= ast.literal_eval(aStr)
-    return s1
+# https://adventofcode.com/2022/day/13
+from collections import defaultdict
+from functools import cmp_to_key
 
 
 def lrComp(left,right):
-    print("comp left",left,"right",right)
+    # -1 = success - in right order; 1=failure; 0=inconclusive
+    # can then use this as the sort function for part 2
+    # https://www.geeksforgeeks.org/how-does-the-functools-cmp_to_key-function-works-in-python/
+    #print("comp left",left,"right",right)
 
-    #just left with two ints
-    if type(left) is int and type(right) is int:
-        return left<right
+    print("comp",left,right)
+    if type(left) == type(right) == int:
+        if left < right:
+            return -1
+        elif  left > right:
+            return 1
+        else:
+            return 0
+    elif type(left) == type(right) == list:
+        n = len(left)
+        m = len(right)
+        res = 0
+        for i in range(min(n, m)):
+            res = lrComp(left[i], right[i])
+            if res:  #either -1 or +1 - we've got a result
+                break
+        if res == 0: #we didnt get a result so check which list ran out or not
+            if n < m: #ran out on the LHS so success
+                return -1
+            elif n > m:  #ran nout on the RHS so failure
+                return 1
+            else: return 0  #inconclusive so keep going
+    elif type(left) == int: #int + a list 
+        res = lrComp([left], right)
+    else:   #list + an int
+        res = lrComp(left, [right])
+    return res
 
-    #if ive got a list on the left and nothing on the right then im false
-    if left and not right:
-        return False
-   
-    if type(left) is int and type(right) is list:
-        tstRes= lrComp(list(left),right) 
-        return tstRes
-    
-    if type(right) is int and type(left) is list:
-        return lrComp(left,list(right))
-
-   #deal with lists of lists - caters for empty as well
-    if type(left) is list and type(right) is list:
-        ll=len(left)
-        lr=len(right)
-        if ll>0 and lr>0:
-            tl=type(left[0])
-            tr=type(right[0])
-            if tr is list and tl is list: 
-                return lrComp(left[0],right[0])
-        
-
-
-    
-    i=0
-    success=True
-    while True:
-        # base case of two integers
-        # quit if we are at the end of either list
-        if (i>=len(left)) or (i>=len(right)):
-            if i<len(left):
-                success=False
-            break
-        cmpL=left[i]
-        cmpR=right[i]
-        tL=type(cmpL)
-        tR=type(cmpR)
-
-        #compare left[i] vs right[i] if they are integers
-        if tL is int and tR is int:
-            if (cmpL>cmpR):
-               success=False
-               break
-        elif tL is list and tR is int:
-            success= lrComp(cmpL[0],cmpR)
-        elif tL is int and tR is list:
-            success= lrComp(cmpL,cmpR[0])
-        else: #both lists
-            success=lrComp(cmpL,cmpR)
-        i+=1
-
-    return success
-
-
-with open("Day13TestInput.txt") as f:
+FILE="Day13TestInput.txt"
+#part 1
+with open(FILE) as f:
     raw_pairs = f.read().split("\n\n")
 pairs=[p.split("\n")for p in raw_pairs]
-
 mySum=0
 for idx,p in enumerate(pairs):
-    p0=strToList(p[0])
-    p1=strToList(p[1])
-    if lrComp(p0,p1):
+    if lrComp(eval(p[0]),eval(p[1]))==-1:
         mySum+=idx+1
-        print("pair",idx+1,"matches. Score now",mySum)
 print("matching score",mySum) 
 
-
+# Part 2
+d = defaultdict(list)
+with open(FILE) as file:
+    lines = [line.strip() for line in file.readlines()]
+for i, line in enumerate(lines):
+    if not line:
+        continue
+    d[i] = eval(line)
+# add in the two dividers
+d[i+1] = [[2]]
+d[i+2] = [[6]]
+# sort the dicionary using our function
+a = sorted(d.values(), key=cmp_to_key(lrComp))
+# find the two indices straight after the dividers
+i = a.index([[2]]) + 1
+j = a.index([[6]]) + 1
+print(i * j)
 
 
