@@ -64,7 +64,47 @@ class RockStructure:
             for i in range(x1,x2+step,step):
                 x=i-self.minx
                 self.grid[y][x]="#"
+    
+    def setSand(self,coord):
+        self.grid[coord[1]-self.miny+1][coord[0]-self.minx+1]="o"
+
+    def isRock(self,coord):
+        return self.grid[coord[1]-self.miny+1][coord[0]-self.minx+1]=="#"
+
+    def dropSand(self,coord):
+        #drops a unit of sand in at coord
+        # returns false if it drops off the side 
+        nextSpot=coord
+        while True:
+            success=False
+            for chk in ['OneDown','DiagLeft','DiagRight']:
+                match chk:
+                    case 'OneDown':
+                        nextSpot=(nextSpot[0],nextSpot[1]+1)
+                    case 'DiagLeft':
+                         nextSpot=(nextSpot[0]-1,nextSpot[1]+1)
+                    case 'DiagRight':
+                         nextSpot=(nextSpot[0]-1,nextSpot[1]+1)
+                # if the next spot is sand then go round again
+                if not self.isRock(nextSpot):
+                    success=True
+                    break
+            if not success:
+                break
+        # ive either come to rest or im in the abyss
+        if nextSpot[0]>=self.minx and nextSpot[0]<=self.maxx:
+            self.setSand(coord)
+            return True
+        else:
+            return False
+            
    
 
 r=RockStructure("Day14TestInput.txt")
 print(r)
+i=1
+while True:
+    if not r.dropSand((500,0)):
+        break
+    else:
+        i+=1
