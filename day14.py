@@ -28,40 +28,42 @@ class RockStructure:
                 myCoords[idx]=thisLine
 
         # build the rocks structure using the dictionary
-        self.grid=[ ['.']*n for n in range(0,self.maxx-self.minx+1)]
+        self.grid=[ ['.']*(self.maxx-self.minx+1) for n in range(0,self.maxy-self.miny+1)]
         for key in myCoords.keys():
             c1=myCoords[key][0]
             i=1
             while i<len(myCoords[key]):
                 c2=myCoords[key][i]
-                #self.setRock(c1,c2)
-                c2=c1
+                self.setRock(c1,c2)
+                c1=c2
                 i+=1
 
     def __repr__(self):
-        myStr=''
-        for i in range(self.miny,self.maxy):
-            myStr+=''.join(str(e) for e in self.grid[i]) +'\n'
+        myStr='Minx, MaxX, MinY, MaxY - '+ \
+            str(self.minx)+","+str(self.maxx)+","+str(self.miny)+","+str(self.maxy)+"\n"
+        for i in range(self.miny,self.maxy+1):
+            myStr+=''.join(str(e) for e in self.grid[i-self.miny]) +'\n'
         return myStr
 
-    def setRock( self, coord1,cord2):
+    def setRock( self, coord1,coord2):
         # sets the rock between coord1 and coord2
+        #print("setRock",coord1,coord2)
         x1,y1=coord1
         x2,y2=coord2
         if x1==x2 :
             #vertical
+            x=x1-self.minx
             step=-1 if y1>y2 else 1
-            for i in range(y1,y2,step):
-                x=x1-self.minx
-                y=i+y1-self.miny
-                self.grid[x][y]="#"
+            for i in range(y1,y2+step,step):
+                y=i-self.miny
+                self.grid[y][x]="#"
         else :
             #horizontal
+            y=y1-self.miny
             step=-1 if x1>x2 else 1
-            for i in range(x1,x2,step):
-                x=i+x1-self.minx
-                y=y1-self.miny
-                self.grid[x][y]="#"
+            for i in range(x1,x2+step,step):
+                x=i-self.minx
+                self.grid[y][x]="#"
    
 
 r=RockStructure("Day14TestInput.txt")
