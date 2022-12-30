@@ -7,7 +7,8 @@ class RockStructure:
     def __init__(self,filename):
         # parse the file 
         myCoords={}
-        self.minx=self.miny=self.maxx=self.maxy=-1
+        self.minx=self.maxx=500
+        self.miny=self.maxy=0
         with open(filename) as file:
             for idx,line in enumerate(file):
                 coords=line.rstrip().split("->")
@@ -17,13 +18,13 @@ class RockStructure:
                     x=int(x)
                     y=int(y)
                     thisLine.append((x,y))
-                    if self.minx==-1 or x<self.minx:
+                    if x<self.minx:
                         self.minx=x
-                    if self.miny==-1 or y<self.miny:
+                    if y<self.miny:
                         self.miny=y
-                    if self.maxx==-1 or x>self.maxx:
+                    if x>self.maxx:
                         self.maxx=x
-                    if self.maxy==-1 or y>self.maxy:
+                    if y>self.maxy:
                         self.maxy=y
                 myCoords[idx]=thisLine
 
@@ -66,37 +67,61 @@ class RockStructure:
                 self.grid[y][x]="#"
     
     def setSand(self,coord):
-        self.grid[coord[1]-self.miny+1][coord[0]-self.minx+1]="o"
+        self.grid[coord[1]-self.miny][coord[0]-self.minx]="o"
 
-    def isRock(self,coord):
-        return self.grid[coord[1]-self.miny+1][coord[0]-self.minx+1]=="#"
+    def isAir(self,coord):
+        if self.inRange(coord):
+            yTest=coord[1]-self.miny
+            xTest=coord[0]-self.minx
+            el=self.grid[yTest][xTest]
+            return (el==".")
+        else:
+            print("isRock passed out of range coord:",coord)
+            return False
+
+    def inRange(self,coord):
+        x=coord[0]
+        y=coord[1]
+        return (  x>= self.minx and x<=self.maxx and y>=self.miny and y<=self.maxy)
+
 
     def dropSand(self,coord):
         #drops a unit of sand in at coord
         # returns false if it drops off the side 
-        nextSpot=coord
+        lastGoodSpot=nextSpot=coord
         while True:
             success=False
             for chk in ['OneDown','DiagLeft','DiagRight']:
                 match chk:
                     case 'OneDown':
-                        nextSpot=(nextSpot[0],nextSpot[1]+1)
+                        nextSpot=(lastGoodSpot[0],lastGoodSpot[1]+1)
                     case 'DiagLeft':
-                         nextSpot=(nextSpot[0]-1,nextSpot[1]+1)
+                         nextSpot=(lastGoodSpot[0]-1,lastGoodSpot[1]+1)
                     case 'DiagRight':
-                         nextSpot=(nextSpot[0]-1,nextSpot[1]+1)
+                         nextSpot=(lastGoodSpot[0]+1,lastGoodSpot[1]+1)
+                
                 # if the next spot is sand then go round again
-                if not self.isRock(nextSpot):
-                    success=True
-                    break
-            if not success:
+                if self.inRange(nextSpot) and self.isAir(nextSpot):
+                    lastGoodSpot=nextSpot
+                    bottomedOut=False
+                    break  #want to break out of the for loop here.
+                else:
+                    #we've bottomed out
+                    bottomedOut=True
+            if  bottomedOut: #we've tried all three options from here without luck
                 break
         # ive either come to rest or im in the abyss
-        if nextSpot[0]>=self.minx and nextSpot[0]<=self.maxx:
-            self.setSand(coord)
-            return True
+             
+        print("sand dropping at",lastGoodSpot)
+        if self.inRange(lastGoodSpot):
+            if self.isAir(lastGoodSpot):
+                self.setSand(lastGoodSpot)
+                return True
+            else:
+                return False
         else:
             return False
+
             
    
 
@@ -107,4 +132,7 @@ while True:
     if not r.dropSand((500,0)):
         break
     else:
+        print(r)
         i+=1
+print(i,"sand units dropped")
+print(r)
