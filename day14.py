@@ -67,23 +67,19 @@ class RockStructure:
                 self.grid[y][x]="#"
     
     def setSand(self,coord):
-        self.grid[coord[1]-self.miny][coord[0]-self.minx]="o"
+        y=coord[1]-self.miny
+        x=coord[0]-self.minx
+        self.grid[y][x]="o"
 
     def isAir(self,coord):
-        if self.inRange(coord):
-            yTest=coord[1]-self.miny
-            xTest=coord[0]-self.minx
-            el=self.grid[yTest][xTest]
-            return (el==".")
-        else:
-            print("isRock passed out of range coord:",coord)
-            return False
+        y=coord[1]-self.miny
+        x=coord[0]-self.minx
+        return (self.grid[y][x]==".")
 
     def inRange(self,coord):
         x=coord[0]
         y=coord[1]
-        return (  x>= self.minx and x<=self.maxx and y>=self.miny and y<=self.maxy)
-
+        return (x>= self.minx and x<=self.maxx and y>=self.miny and y<=self.maxy)
 
     def dropSand(self,coord):
         #drops a unit of sand in at coord
@@ -105,14 +101,11 @@ class RockStructure:
                     #we're in the abyss
                     inAbyss=True
                     break
-                
-                if self.isAir(nextSpot):
+
+                bottomedOut= not self.isAir(nextSpot)
+                if not bottomedOut:
                     lastGoodSpot=nextSpot
-                    bottomedOut=False
-                    break  
-                else:
-                    #we've bottomed out need to try the other directions
-                    bottomedOut=True
+                    break
 
         # ive either come to rest or im in the abyss
         if inAbyss:
@@ -121,7 +114,6 @@ class RockStructure:
             self.setSand(lastGoodSpot)
             return True
 
-                   
     def fillMe(self,startCoord):
     # keep dropping sand in until it flows into the abyss
         i=0
