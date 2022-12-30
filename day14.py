@@ -88,49 +88,40 @@ class RockStructure:
     def dropSand(self,coord):
         #drops a unit of sand in at coord
         # returns false if it drops off the side 
-        lastGoodSpot=nextSpot=coord
+        lastGoodSpot=nextSpot=coord  #keep track of last two places traversed
         inAbyss=False
-        while True:
-            success=False
+        bottomedOut=False
+        while not (bottomedOut or inAbyss):
             for chk in ['OneDown','DiagLeft','DiagRight']:
                 match chk:
                     case 'OneDown':
                         nextSpot=(lastGoodSpot[0],lastGoodSpot[1]+1)
                     case 'DiagLeft':
-                         nextSpot=(lastGoodSpot[0]-1,lastGoodSpot[1]+1)
+                        nextSpot=(lastGoodSpot[0]-1,lastGoodSpot[1]+1)
                     case 'DiagRight':
-                         nextSpot=(lastGoodSpot[0]+1,lastGoodSpot[1]+1)
-                
+                        nextSpot=(lastGoodSpot[0]+1,lastGoodSpot[1]+1)
                 # if the next spot is sand then go round again
                 if not self.inRange(nextSpot):
                     #we're in the abyss
                     inAbyss=True
                     break
+                
                 if self.isAir(nextSpot):
                     lastGoodSpot=nextSpot
                     bottomedOut=False
-                    break  #want to break out of the for loop here.
+                    break  
                 else:
-                    #we've bottomed out
+                    #we've bottomed out need to try the other directions
                     bottomedOut=True
-            if  inAbyss or bottomedOut: #we've tried all three options from here without luck
-                break
-        # ive either come to rest or im in the abyss
 
+        # ive either come to rest or im in the abyss
         if inAbyss:
             return False
-
-       # print("sand dropping at",lastGoodSpot)
-        if self.inRange(lastGoodSpot):
-            if self.isAir(lastGoodSpot):
-                self.setSand(lastGoodSpot)
-                return True
-            else:
-                return False
         else:
-            return False
+            self.setSand(lastGoodSpot)
+            return True
 
-            
+                   
     def fillMe(self,startCoord):
     # keep dropping sand in until it flows into the abyss
         i=0
