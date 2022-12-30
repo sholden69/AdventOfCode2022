@@ -1,47 +1,637 @@
-setRock (498, 4) (498, 6)
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-##....
-......
-......
-......
-......
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+........#.
+........#.
+#########.
 
-setRock (498, 6) (496, 6)
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-###...
-......
-......
-......
-......
+sand dropping at (500, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+........#.
+......o.#.
+#########.
 
-setRock (503, 4) (502, 4)
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-###...
-......
-......
-......
-......
+sand dropping at (499, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+........#.
+.....oo.#.
+#########.
 
-setRock (502, 4) (502, 9)
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-###...
-......
-......
-......
-#####.
+sand dropping at (501, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+........#.
+.....ooo#.
+#########.
 
-setRock (502, 9) (494, 9)
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-###..#
-.....#
-.....#
-.....#
-######
+sand dropping at (500, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+......o.#.
+.....ooo#.
+#########.
 
-Minx, MaxX, MinY, MaxY - 494,503,4,9
-###..#
-.....#
-.....#
-.....#
-######
+sand dropping at (498, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+......o.#.
+....oooo#.
+#########.
+
+sand dropping at (499, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+.....oo.#.
+....oooo#.
+#########.
+
+sand dropping at (501, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###...#.
+.....ooo#.
+....oooo#.
+#########.
+
+sand dropping at (500, 6)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###.o.#.
+.....ooo#.
+....oooo#.
+#########.
+
+sand dropping at (497, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###.o.#.
+.....ooo#.
+...ooooo#.
+#########.
+
+sand dropping at (498, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###.o.#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (499, 6)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###oo.#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (501, 6)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#...#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (500, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#.o.#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (499, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#oo.#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (501, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#...##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (500, 4)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#.o.##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (499, 4)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#oo.##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (501, 4)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+..........
+....#ooo##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (500, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+......o...
+....#ooo##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (499, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+.....oo...
+....#ooo##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (501, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+..........
+.....ooo..
+....#ooo##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (500, 2)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+....#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (497, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+....oooo#.
+...ooooo#.
+#########.
+
+sand dropping at (495, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+....oooo#.
+.o.ooooo#.
+#########.
+
+sand dropping at (494, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+....oooo#.
+oo.ooooo#.
+#########.
+
+sand dropping at (496, 8)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+....oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (495, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+.o..oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (494, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+oo..oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (496, 7)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+..###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (495, 6)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+...o#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (496, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+....#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (497, 4)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+.....ooo..
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (498, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+......o...
+....oooo..
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (499, 2)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+.....oo...
+....oooo..
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (502, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+.....oo...
+....ooooo.
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (501, 2)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+..........
+.....ooo..
+....ooooo.
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (500, 1)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+.....ooo..
+....ooooo.
+...o#ooo##
+..oo#ooo#.
+.o###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (494, 6)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+.....ooo..
+....ooooo.
+...o#ooo##
+..oo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (495, 5)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+.....ooo..
+....ooooo.
+...o#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (496, 4)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+.....ooo..
+....ooooo.
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (497, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+.....ooo..
+...oooooo.
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (498, 2)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+......o...
+....oooo..
+...oooooo.
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (499, 1)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+.....oo...
+....oooo..
+...oooooo.
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (503, 3)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+.....oo...
+....oooo..
+...ooooooo
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (502, 2)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+.....oo...
+....ooooo.
+...ooooooo
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (501, 1)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+..........
+.....ooo..
+....ooooo.
+...ooooooo
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (500, 0)
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+......o...
+.....ooo..
+....ooooo.
+...ooooooo
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
+
+sand dropping at (500, 0)
+48 sand units dropped
+Minx, MaxX, MinY, MaxY - 494,503,0,9
+......o...
+.....ooo..
+....ooooo.
+...ooooooo
+..oo#ooo##
+.ooo#ooo#.
+oo###ooo#.
+ooo.oooo#.
+oooooooo#.
+#########.
 

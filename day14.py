@@ -89,6 +89,7 @@ class RockStructure:
         #drops a unit of sand in at coord
         # returns false if it drops off the side 
         lastGoodSpot=nextSpot=coord
+        inAbyss=False
         while True:
             success=False
             for chk in ['OneDown','DiagLeft','DiagRight']:
@@ -101,18 +102,25 @@ class RockStructure:
                          nextSpot=(lastGoodSpot[0]+1,lastGoodSpot[1]+1)
                 
                 # if the next spot is sand then go round again
-                if self.inRange(nextSpot) and self.isAir(nextSpot):
+                if not self.inRange(nextSpot):
+                    #we're in the abyss
+                    inAbyss=True
+                    break
+                if self.isAir(nextSpot):
                     lastGoodSpot=nextSpot
                     bottomedOut=False
                     break  #want to break out of the for loop here.
                 else:
                     #we've bottomed out
                     bottomedOut=True
-            if  bottomedOut: #we've tried all three options from here without luck
+            if  inAbyss or bottomedOut: #we've tried all three options from here without luck
                 break
         # ive either come to rest or im in the abyss
-             
-        print("sand dropping at",lastGoodSpot)
+
+        if inAbyss:
+            return False
+
+       # print("sand dropping at",lastGoodSpot)
         if self.inRange(lastGoodSpot):
             if self.isAir(lastGoodSpot):
                 self.setSand(lastGoodSpot)
@@ -123,16 +131,19 @@ class RockStructure:
             return False
 
             
-   
+    def fillMe(self,startCoord):
+    # keep dropping sand in until it flows into the abyss
+        i=0
+        while True:
+            if not r.dropSand((500,0)):
+                break
+            else:
+                i+=1
+        return i
 
-r=RockStructure("Day14TestInput.txt")
-print(r)
-i=1
-while True:
-    if not r.dropSand((500,0)):
-        break
-    else:
-        print(r)
-        i+=1
-print(i,"sand units dropped")
-print(r)
+r=RockStructure("Day14Input.txt")
+i=r.fillMe((500,0))
+print(r,'\n',i,"sand units dropped")
+
+
+
