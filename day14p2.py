@@ -1,6 +1,6 @@
 # Day   - part 2
 # https://adventofcode.com/2022/day/14
-# answer is 30214 but im currently generating 2449 so way off!!
+# answer is 30214 
 
 
 class RockStructure:
