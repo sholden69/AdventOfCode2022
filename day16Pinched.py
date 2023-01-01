@@ -68,7 +68,10 @@ class _State:
 
 def _solve(lines, num_agents, total_time):
     # pylint: disable=too-many-branches,too-many-nested-blocks,too-many-locals
-    graph = _parse(lines)
+    # parse each valve, flow_value + list of connecting valves
+    graph = _parse(lines) 
+
+    #calculate the distances between each pair of valves. pass in a generator object
     distances = _distances(
         (src, ((dst, 1) for dst in dsts)) for src, (_, dsts) in graph.items()
     )
