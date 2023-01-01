@@ -13,37 +13,31 @@ import re
 from heapq import heappush, heappop
 
 
-
-
-def getNeighbours(valve, vlist):
+def getNeighbours(vlist,valve):
     return vlist[valve][1]
   
 
-
-def getPressure(start,vList):
-    # Dijkstra for shortest path finding
-    # Our tuple will be totalpressure,time,node
-    visited = set()
-    prio_queue = []
-    heappush(prio_queue, (0, 0, start))
-
-    while True:
-        if not prio_queue: # no more neighbours to check out so bail
-            break
-
-        #get the next node and the step count  to here tuple off the heap
-        # heap will return the item with the highest number of steps first
-        pressure, time, node = heappop(prio_queue)
-        print("processing",node,"pressure=",pressure,"time=",time)
-        if node not in visited:  #if this is a new node
-            visited.add(node)
-            if time==30:  #we've reached the end
-                return pressure
-            # find all the legitimate neighbours of this node and push to heap with count incremented
-            time+=2
-            for aNode in getNeighbours(node,vList):
-                myPressure=pressure+vList[aNode][0]
-                heappush(prio_queue, (myPressure, time,aNode))
+def findBestRoute(vlist,valve,time)-> int:
+    # try each path from here
+    if time>30:
+        return 0
+    print("starting at",valve,"time",time)
+    nbors=getNeighbours(vlist,valve)
+    res=[]
+    for nbor in nbors:
+        # move without opening the valve
+        res.append(findBestRoute(vlist,nbor,time+1))
+        #open the valve if its closed
+        if not vlist[nbor][2]:
+            flow=vlist[nbor][0]
+            tunnels=vlist[nbor][1]
+            vlist[nbor]=(flow,tunnels,True)
+            res.append(findBestRoute(vlist,nbor,time+2))
+    if len(res)==0 :
+        return 0
+    else:       
+        res.sort(reverse=True)
+        return res[0]
 
 
 def readinput(filename):
@@ -52,17 +46,17 @@ def readinput(filename):
     with open(filename) as f:
             for line in f.readlines():
                 v=line[6:8]
-                vflow=int(re.findall(r"=(-?\d+)", line)[0])*-1
+                vflow=int(re.findall(r"=(-?\d+)", line)[0]) 
                 if len(line)<=52: 
                     tunnels=[line[-3:].strip()]
                 else:
                     tunnels=line[line.find("valves")+7:].strip().split(", ")
-                valves[v]=(vflow,tunnels)
+                valves[v]=(vflow,tunnels,False)
     return valves
 
 
 vList=readinput('Day16TestInput.txt')
 print(vList)
-print(getPressure("AA",vList))
+print(findBestRoute(vList,"AA",0))
 
 
