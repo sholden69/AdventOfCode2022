@@ -88,54 +88,33 @@ class RockStructure:
         y=coord[1]
         return (x>= self.minx and x<=self.maxx and y>=self.miny and y<=self.maxy)
 
-    def dropSand(self,coord):
-        #drops a unit of sand in at coord
-        # returns false if it drops off the side  
-        if not self.isAir(coord): #cant even start
-           return False
-        lastGoodSpot=nextSpot=coord  #keep track of last two places traversed
-        inAbyss=False
-        bottomedOut=False
-        while not (bottomedOut or inAbyss):
-            for chk in ['OneDown','DiagLeft','DiagRight']:
-                match chk:
-                    case 'OneDown':
-                        nextSpot=(lastGoodSpot[0],lastGoodSpot[1]+1)
-                    case 'DiagLeft':
-                        nextSpot=(lastGoodSpot[0]-1,lastGoodSpot[1]+1)
-                    case 'DiagRight':
-                        nextSpot=(lastGoodSpot[0]+1,lastGoodSpot[1]+1)
-                # if the next spot is sand then go round again
-                if not self.inRange(nextSpot):
-                    #we're in the abyss
-                    inAbyss=True
-                    break
 
-                bottomedOut= not self.isAir(nextSpot)
-                if not bottomedOut:
-                    lastGoodSpot=nextSpot
-                    break
-
-        # ive either come to rest or im in the abyss
-        if inAbyss:
-            return False
-        else:
-            #print("sand at",lastGoodSpot)
-            self.setSand(lastGoodSpot)
-            return True
-
-    def fillMe(self,startCoord):
-    # keep dropping sand in until it flows into the abyss
-        i=0
+    def fillMe2(self) -> int : 
+        #version of fillMe for part 2 takes advantage of knowing the floor
+        sandCount=0
         while True:
-            if not r.dropSand((500,0)):
+            thisX=500
+            thisY=0
+            while True:
+                if self.isAir((thisX,thisY+1)): 
+                    thisY+=1
+                elif self.isAir((thisX-1,thisY+1)): 
+                    thisY+=1
+                    thisX-=1
+                elif self.isAir((thisX+1,thisY+1)): 
+                    thisY+=1
+                    thisX+=1
+                else:
+                    if self.isAir((thisX,thisY)):
+                        self.setSand((thisX,thisY))
+                        sandCount+=1
+                    break
+            if thisX==500 and thisY==0:
                 break
-            else:
-                i+=1
-        return i
+        return sandCount
 
 r=RockStructure("Day14Input.txt")
-i=r.fillMe((500,0))
+i=r.fillMe2()
 print(r,'\n',i,"sand units dropped")
 
 
