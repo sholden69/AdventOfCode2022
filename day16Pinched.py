@@ -40,14 +40,18 @@ def _parse(lines):
 
 
 def _distances(adj):
+    # creates store of shortest distance between each valve
     keys, distances = set(), defaultdict(lambda: math.inf)
+    # loop through for each source and the list of dests on each source
     for src, dsts in adj:
         keys.add(src)
-        distances[src, src] = 0
+        distances[src, src] = 0  #distance to itself is zero
         for dst, weight in dsts:
             keys.add(dst)
             distances[dst, dst] = 0
             distances[src, dst] = weight
+    
+    # check every three step move
     for mid in keys:
         for src in keys:
             for dst in keys:
@@ -72,6 +76,8 @@ def _solve(lines, num_agents, total_time):
     graph = _parse(lines) 
 
     #calculate the distances between each pair of valves. pass in a generator object
+    # inner generator products srd, dst from each line in the file 
+    # out loop then simply returns src,dst
     distances = _distances(
         (src, ((dst, 1) for dst in dsts)) for src, (_, dsts) in graph.items()
     )
