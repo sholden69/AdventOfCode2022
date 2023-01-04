@@ -1,4 +1,8 @@
 
+# Advent of Code 2022 Day 4
+# https://adventofcode.com/2022/day/4
+
+import re
 class srch_rec:
 
     def __init__(self, lo1, hi1, lo2,hi2):
@@ -33,11 +37,23 @@ with open("day4input.txt") as file:
         lo2,hi2=r2.split("-",1)
         recs.append(srch_rec(lo1,hi1,lo2,hi2)) 
 
+# Try with a reg exp
+recs=[]
+pattern = re.compile(r"(\d+)-(\d+),(\d+)-(\d+)")  # eg 1-2,3-4
+lines=open("day4Input.txt").read().splitlines()
+for  line in lines:
+        if match := pattern.match(line):
+            v=[match.groups()[i] for i in range(4)]
+            recs.append(srch_rec(*v)) 
+
+
+
 #part1 - count the number of contained items (equal=contained)
 print ("part 1: list comp:",len([1 for s in recs if s.isContained() ]))
 #part2 - just count the intersections 
 print ("part 2: list comp:",len([1 for s in recs if s.overlaps() ]))
 
+"""
 # older long-winded code
 # part 1 
 cnt=0
@@ -53,6 +69,7 @@ for s in recs:
     if s.overlaps():
         cnt+=1
 print("part 2 count - intersections",cnt)
+"""
 
 
 

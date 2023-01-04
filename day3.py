@@ -1,4 +1,5 @@
-
+#advent of Code 2022 day 3
+#  https://adventofcode.com/2022/day/3
 
 #build my list scoring elf_dict
 scores=[i+1 for i in range(52)]
