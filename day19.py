@@ -11,6 +11,11 @@ input_pattern = re.compile('^Blueprint ([0-9]+): Each ore robot costs ([0-9]+) o
 
 def get_daily_input():
     bps=[]
+    with open("Day19Input.txt") as file:
+       lines = [line.rstrip() for line in file]
+    return(lines)
+
+    #alternative that uses a reg exp
     with open("Day19TestInput.txt") as file:
         for line in file:
             m = input_pattern.match(line.strip())
@@ -23,7 +28,7 @@ def get_daily_input():
             costs["geode"]["ore"] = int(m.group(6))
             costs["geode"]["obsidian"] = int(m.group(7))
             bps.append(costs)
-    return []
+    return bps
 
 class Blueprint:
     __slots__ = ("id", "cost", "useful")
@@ -73,8 +78,7 @@ class State:
 def evaluate_options(
         blueprint: Blueprint,
         prior_states: list[State],
-        timelimit: int = 26
-) -> [tuple[int, list]]:
+        timelimit: int = 26 ) :
     time_remaining = timelimit - len(prior_states)
     curr_state = prior_states[-1]
  
