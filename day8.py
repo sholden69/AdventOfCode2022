@@ -40,7 +40,8 @@ class Forest:
         with open(fn) as f:
             for line in f:
                 thisrow=[int(c) for c in line if c.isnumeric()]
-                self.rows.append(thisrow)
+                self.rows.append(thisrow) 
+        
         self.nrows = len(self.rows)
         self.ncols = len(self.rows[0])
 
