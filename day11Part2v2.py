@@ -74,16 +74,13 @@ class Monkey:
 
     def applyThrowRule2(self,itm):
         #returns the number of the monkey to throw to 
-        rem= itm % self.divisor 
-        if rem== 0:
+        if itm % self.divisor ==0: 
             return [self.true_monkey,0]
         else:
             return [self.false_monkey,rem]
 
     def __repr__(self):
-        outstr='Starting items:'
-        for i in self.items:
-            outstr+=str(i)+' '
+        outstr='Starting items:'.join((str(i)+' ') for i in self.items)
         outstr+='\n Worry Rule:'+self.worry_rule
         outstr+='\n Divisor:'+str(self.divisor)
         outstr+='\n True\False:'+str(self.true_monkey)+' '+str(self.false_monkey)
