@@ -15,9 +15,7 @@ class RockStructure:
                 coords=line.rstrip().split("->")
                 thisLine=[]
                 for coord in coords:
-                    x,y=coord.split(',')
-                    x=int(x)
-                    y=int(y)
+                    x,y=map(int,coord.split(','))
                     thisLine.append((x,y))
                     if x<self.minx:
                         self.minx=x
@@ -84,10 +82,8 @@ class RockStructure:
         return (self.grid[y][x]==".")
 
     def inRange(self,coord):
-        x=coord[0]
-        y=coord[1]
+        x,y=coord
         return (x>= self.minx and x<=self.maxx and y>=self.miny and y<=self.maxy)
-
 
     def fillMe2(self) -> int : 
         #version of fillMe for part 2 takes advantage of knowing the floor
