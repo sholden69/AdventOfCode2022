@@ -14,9 +14,7 @@ class RockStructure:
                 coords=line.rstrip().split("->")
                 thisLine=[]
                 for coord in coords:
-                    x,y=coord.split(',')
-                    x=int(x)
-                    y=int(y)
+                    x,y=map(int,coord.split(','))
                     thisLine.append((x,y))
                     if x<self.minx:
                         self.minx=x
@@ -117,11 +115,8 @@ class RockStructure:
     def fillMe(self,startCoord):
     # keep dropping sand in until it flows into the abyss
         i=0
-        while True:
-            if not r.dropSand((500,0)):
-                break
-            else:
-                i+=1
+        while r.dropSand((500,0)):
+            i+=1
         return i
 
 r=RockStructure("Day14Input.txt")
