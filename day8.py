@@ -1,12 +1,13 @@
+#Advent of Code 2022 Day 8: https://adventofcode.com/2022/day/8
+from itertools import product
+
 def checkTreeVisible(l:list, posn:int, ht:int) -> bool:
         # checks along in both directions for visible
-        lftSlice=l[0:posn-1]
-        if max(lftSlice)<ht:
+        lftSlice, rSlice=l[0:posn-1], l[posn:]
+        if max(lftSlice)<ht or max(rSlice)<ht:
             return True
-        rSlice=l[posn:]
-        if max(rSlice)<ht:
-            return True
-        return False
+        else:
+            return False
         
 def checkTreeScenic(l:list, posn:int, ht:int) -> int:
         # checks along in both directions for visible
@@ -28,9 +29,7 @@ def checkTreeScenic(l:list, posn:int, ht:int) -> int:
             if (rSlice[i]>=ht): 
                 break
             i+=1
-        
         return res1*res2
-
 
 class Forest:
 #holds the rectangle of the forest
@@ -41,7 +40,6 @@ class Forest:
             for line in f:
                 thisrow=[int(c) for c in line if c.isnumeric()]
                 self.rows.append(thisrow) 
-        
         self.nrows = len(self.rows)
         self.ncols = len(self.rows[0])
 
@@ -49,12 +47,9 @@ class Forest:
         #return the height of the tree at coord x,Y
         return(self.rows[row-1][col-1])
 
-    def __repr__(self):
-        res=''
-        for r in self.rows:
-            res+=r.__repr__()+'\n'
-        return res
-
+    def __repr__(self) ->str:
+        return(''.join(r.__repr__()+'\n' for r in self.rows))
+    
     def getCol(self,col) -> list[int]:
         return [x[col-1] for x in self.rows]
     
@@ -75,21 +70,15 @@ class Forest:
             return True
         return False
 
-    def width(self):
+    def width(self) -> int:
         return self.ncols
 
-    def height(self):
+    def height(self) ->int:
         return self.nrows
 
-
     def countVisible(self) -> int:
-        res=0
-        for r in range(1,self.nrows+1):
-            for c in range(1,self.ncols+1):
-                if self.isVisible(r,c):
-                    res+=1
-        return res
-
+        return sum(1 for r,c in product(range(1,self.nrows+1),range(1,self.ncols+1)) if self.isVisible(r,c))
+     
     def scenicScore(self,row,col) -> int:
     # go up down and left/right and count to edge or tree >= height
         myHeight=self.getHeight(row,col) 
@@ -97,22 +86,9 @@ class Forest:
                checkTreeScenic(self.getCol(col),row,myHeight)
 
 
-
 fst=Forest("Day8Input.txt")
-print(fst)
+#print(fst)
 print("Part 1: visible trees",fst.countVisible())
-max_score=0
-for r in range(1,fst.nrows):
-    for c in range(1,fst.ncols):
-        if (r!=1) and (c!=1) and (r!=fst.nrows) and (c!=fst.ncols):
-           this_score=fst.scenicScore(r,c)
-           #print("row,col:height",r,c,":",fst.getHeight(r,c),"score:",this_score)
-           if (this_score>max_score):
-                max_score=this_score
-
+max_score=max(fst.scenicScore(r,c) for r,c in product(range(1,fst.nrows),range(1,fst.ncols)) if \
+    (r!=1) and (c!=1) and (r!=fst.nrows) and (c!=fst.ncols))
 print("Part 2: max_score:",max_score)
-
-
-
-
-
