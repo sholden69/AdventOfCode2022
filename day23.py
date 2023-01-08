@@ -1,4 +1,4 @@
-# Advent of Code 2022 Day 23
+# Advent of Code 2022 Day 23: https://adventofcode.com/2022/day/23
 # Courtesy of:  https://github.com/silentw0lf/advent_of_code_2022/blob/main/23/solve.py
 
 from collections import defaultdict
@@ -29,21 +29,25 @@ while True:
         for nt in queue:
             if not any(add(pos, d) in pos_elves_speedup for d in dirs[nt]):
                 moves[add(pos, dirs[nt][0])].append(idx)
-                break
+                break #jump out when we've found a move
 
-    queue.append(queue.pop(0))
+    queue.append(queue.pop(0))  #rotate the N, S, E , W order of selection for the next round
 
+    # second part of protocol. if only one elf proposed moving to that space then do it.
     some_move = False
     for pos, idxs in moves.items():
         if len(idxs) == 1:
             pos_elves[idxs[0]] = pos
             some_move = True
 
+    # count the number of empty ground tiles contained by the smallest rectangle that contains every Elf
+    # after round 10
     if r == 10:
         mir, mar = min(t[0] for t in pos_elves), max(t[0] for t in pos_elves)
         mic, mac = min(t[1] for t in pos_elves), max(t[1] for t in pos_elves)
         empty = (mar - mir + 1) * (mac - mic + 1) - len(pos_elves)
-
+   
+    #we're done once no one moves again
     if not some_move:
         break
 
