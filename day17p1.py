@@ -14,12 +14,12 @@ rocks = [[[2, 0], [3, 0], [4, 0], [5, 0]],
 chamber = {(x, 0) for x in range(7)}
 highest = 0
 jet = 0
-for i in range(2022):
-    rock = copy.deepcopy(rocks[i % 5])
+for i in range(2022): #we're doing 2022 rounds
+    rock = copy.deepcopy(rocks[i % 5])  #pick our rocks for this round
     adjustment = highest + 4
-    for n in rock:
+    for n in rock:   #adjust the coords of where this new rock starts to be four spots above highest seen so far
         n[1] += adjustment
-    rest = False
+    rest = False  #have i come to rest
     while not rest:
         new_rock = []
         if jets[jet] == '<':
