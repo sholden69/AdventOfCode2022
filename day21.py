@@ -1,9 +1,16 @@
 """
 Author: Darren
 Date: 01/12/2022
-Solving https://adventofcode.com/2022/day/1
+Solving https://adventofcode.com/2022/day/21
 walkthrough: https://aoc.just2good.co.uk/2022/21
-We have a list of instructions. They are either:
+We have a list of instructions. 
+eg:
+
+vbjj: fcml * mwwn
+mbmw: 2
+gstw: cldd / rvtn
+
+They are either:
 - Assign value to monkey. (The value the monkey will yell.)
 - Perform an operation on two monkeys, and assign result to monkey
 Part 1:
