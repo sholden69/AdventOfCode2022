@@ -1,62 +1,170 @@
-# Advent Of Code 2022 Day 16:  https://adventofcode.com/2022/day/16
+"""
+Day 16: Proboscidea Volcanium
+https://adventofcode.com/2022/day/16
+https://github.com/ephemient/aoc2022/blob/main/py/aoc2022/day16.py
 
-# file: Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
+"""
 
-# Valves (flow,[valves])
-
-# This is a graph traversal problem with a twist.
-# as traverse the paths the cumulative impact of each subsequent node in the remaining time is less
-
-# use what we learned in day12
-
+import heapq
+import math
 import re
-from heapq import heappush, heappop
+from collections import defaultdict
+from dataclasses import dataclass
+
+PATTERN = re.compile(
+    r"Valve (\w+) has flow rate=(\d+); "
+    r"(?:tunnel leads to valve|tunnels lead to valves) (\w+(?:, \w+)*)"
+)
+
+SAMPLE_INPUT = [
+    "Valve AA has flow rate=0; tunnels lead to valves DD, II, BB",
+    "Valve BB has flow rate=13; tunnels lead to valves CC, AA",
+    "Valve CC has flow rate=2; tunnels lead to valves DD, BB",
+    "Valve DD has flow rate=20; tunnels lead to valves CC, AA, EE",
+    "Valve EE has flow rate=3; tunnels lead to valves FF, DD",
+    "Valve FF has flow rate=0; tunnels lead to valves EE, GG",
+    "Valve GG has flow rate=0; tunnels lead to valves FF, HH",
+    "Valve HH has flow rate=22; tunnel leads to valve GG",
+    "Valve II has flow rate=0; tunnels lead to valves AA, JJ",
+    "Valve JJ has flow rate=21; tunnel leads to valve II",
+]
 
 
-def getNeighbours(vlist,valve):
-    return vlist[valve][1]
-  
-
-def findBestRoute(vlist,valve,time)-> int:
-    # try each path from here
-    if time>30:
-        return 0
-    print("starting at",valve,"time",time)
-    nbors=getNeighbours(vlist,valve)
-    res=[]
-    for nbor in nbors:
-        # move without opening the valve
-        res.append(findBestRoute(vlist,nbor,time+1))
-        #open the valve if its closed
-        if not vlist[nbor][2]:
-            flow=vlist[nbor][0]
-            tunnels=vlist[nbor][1]
-            vlist[nbor]=(flow,tunnels,True)
-            res.append(findBestRoute(vlist,nbor,time+2))
-    if len(res)==0 :
-        return 0
-    else:       
-        res.sort(reverse=True)
-        return res[0]
+def _parse(lines):
+    return {
+        (match := re.match(PATTERN, line)).group(1): (
+            int(match.group(2)),
+            match.group(3).split(", "),
+        )
+        for line in lines
+    }
 
 
-def readinput(filename):
-    #Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
-    valves={}
-    with open(filename) as f:
-            for line in f.readlines():
-                v=line[6:8]
-                vflow=int(re.findall(r"=(-?\d+)", line)[0]) 
-                if len(line)<=52: 
-                    tunnels=[line[-3:].strip()]
+def _distances(adj):
+    # creates store of shortest distance between each valve
+    keys, distances = set(), defaultdict(lambda: math.inf)
+    # loop through for each source and the list of dests on each source
+    for src, dsts in adj:
+        keys.add(src)
+        distances[src, src] = 0  #distance to itself is zero
+        for dst, weight in dsts:
+            keys.add(dst)
+            distances[dst, dst] = 0
+            distances[src, dst] = weight
+    
+    # check every three step move
+    for mid in keys:
+        for src in keys:
+            for dst in keys:
+                distance = distances[src, mid] + distances[mid, dst]
+                if distance < distances[src, dst]:
+                    distances[src, dst] = distance
+    return distances
+
+
+@dataclass(order=True, frozen=True)
+class _State:
+    rooms: tuple[tuple[str, int]]
+    valves: frozenset[str]
+    flow: int
+    total: int
+    time: int
+
+
+def _solve(lines, num_agents, total_time):
+    # pylint: disable=too-many-branches,too-many-nested-blocks,too-many-locals
+    # parse each valve, flow_value + list of connecting valves
+    graph = _parse(lines) 
+
+    #calculate the distances between each pair of valves. pass in a generator object
+    # inner generator products srd, dst from each line in the file 
+    # out loop then simply returns src,dst
+    distances = _distances(
+        (src, ((dst, 1) for dst in dsts)) for src, (_, dsts) in graph.items()
+    )
+    seen, max_seen = set(), 0
+    heap = [
+        (
+            0,
+            _State(
+                rooms=(("AA", 0),) * num_agents,
+                valves=frozenset(src for src, (flow, _) in graph.items() if flow > 0),
+                flow=0,
+                total=0,
+                time=total_time,
+            ),
+        )
+    ]
+
+    while heap:
+        estimate, state = heapq.heappop(heap)
+        estimate = -estimate
+        if state in seen:
+            continue
+        seen.add(state)
+        potential = estimate + sum(
+            max(
+                (
+                    graph[valve][0] * (state.time - delta - 1)
+                    for room, age in state.rooms
+                    if (delta := distances[room, valve] - age) in range(state.time)
+                ),
+                default=0,
+            )
+            for valve in state.valves
+        )
+        if estimate > max_seen:
+            max_seen = estimate
+        if potential < max_seen:
+            continue
+
+        moves_by_time = defaultdict(lambda: defaultdict(list))
+        for valve in state.valves:
+            for i, (room, age) in enumerate(state.rooms):
+                delta = distances[room, valve] - age
+                if delta in range(state.time):
+                    moves_by_time[delta][i].append(valve)
+        if not moves_by_time:
+            continue
+
+        for delta, moves_by_agent in moves_by_time.items():
+            indices = [None] * num_agents
+            while True:
+                for i, index in enumerate(indices):
+                    index = 0 if index is None else index + 1
+                    if index < len(moves_by_agent[i]):
+                        indices[i] = index
+                        break
+                    indices[i] = None
                 else:
-                    tunnels=line[line.find("valves")+7:].strip().split(", ")
-                valves[v]=(vflow,tunnels,False)
-    return valves
+                    break
+                valves = [
+                    (i, moves_by_agent[i][index])
+                    for i, index in enumerate(indices)
+                    if index is not None
+                ]
+                if len(valves) != len(set(valve for _, valve in valves)):
+                    continue
+                new_rooms = [(room, age + delta + 1) for room, age in state.rooms]
+                for i, valve in valves:
+                    new_rooms[i] = valve, 0
+                rate = sum(graph[valve][0] for _, valve in valves)
+                new_state = _State(
+                    rooms=tuple(sorted(new_rooms)),
+                    valves=state.valves - set(valve for _, valve in valves),
+                    flow=state.flow + rate,
+                    total=state.total + state.flow * (delta + 1),
+                    time=state.time - delta - 1,
+                )
+                heapq.heappush(heap, (-estimate - rate * new_state.time, new_state))
+    return max_seen
 
+def part1(lines):
+    return _solve(lines, num_agents=1, total_time=30)
 
-vList=readinput('Day16TestInput.txt')
-print(vList)
-print(findBestRoute(vList,"AA",0))
+def part2(lines):
+   return _solve(lines, num_agents=2, total_time=26)
 
-
+with open("Day16Input.txt") as file:
+    lines = [line.rstrip() for line in file]
+print(part1(lines),part2(lines))
