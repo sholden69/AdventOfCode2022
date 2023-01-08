@@ -82,6 +82,7 @@ def _solve(lines, num_agents, total_time):
     distances = _distances(
         (src, ((dst, 1) for dst in dsts)) for src, (_, dsts) in graph.items()
     )
+    print(f"distances {distances}")
     seen, max_seen = set(), 0
     heap = [
         (
@@ -99,10 +100,10 @@ def _solve(lines, num_agents, total_time):
     while heap:
         estimate, state = heapq.heappop(heap)
         estimate = -estimate
-        if state in seen:
+        if state in seen: #if weve been here before then skip
             continue
         seen.add(state)
-        potential = estimate + sum(
+        potential = estimate + sum(    #try all the valves from here
             max(
                 (
                     graph[valve][0] * (state.time - delta - 1)
@@ -113,7 +114,7 @@ def _solve(lines, num_agents, total_time):
             )
             for valve in state.valves
         )
-        if estimate > max_seen:
+        if estimate > max_seen: #record what the biggest pressure release was
             max_seen = estimate
         if potential < max_seen:
             continue
@@ -165,6 +166,6 @@ def part1(lines):
 def part2(lines):
    return _solve(lines, num_agents=2, total_time=26)
 
-with open("Day16Input.txt") as file:
+with open("Day16TestInput.txt") as file:
     lines = [line.rstrip() for line in file]
 print(part1(lines),part2(lines))
