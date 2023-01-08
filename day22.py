@@ -1,22 +1,23 @@
-#Advent of Code 2022: day 22
+#Advent of Code 2022: day 22: https://adventofcode.com/2022/day/22
 # courtesy of https://github.com/deivi-drg/advent-of-code-2022/blob/main/Day22/day22.py
 """
 I have a Face object which contains the following info of each of the faces of the cube:
-
 The coordinate of the point of the top left
+The coordinate of each of the walls relative to that particular face (meaning coordinates between 
+(0,0) and (N-1, N-1), where N is the number of points in each direction in the face).
+The right, down, left and top neighbours, as well as the relative orientation between them: 
+0 if the next neighbour has the same orientation as the face, 1 if it's rotated 90º clockwise...
+The set up of the adjacencies as they come on the map is done in the same way for both parts. Then, 
+depending on whether we are in what I called "wrap mode" and "cube mode", the rest of the neighbours are set 
+up accordingly.
 
-The coordinate of each of the walls relative to that particular face (meaning coordinates between (0,0) and (N-1, N-1), where N is the number of points in each direction in the face).
+For part 1, "wrap mode", I fill the remaining neighborus as the input says: go in the direction opposite to 
+the one I want to fill until I get out of the map, and the last encountered face is the neighbour. All of them have 
+relative orientation 0 according to what I described above.
 
-The right, down, left and top neighbours, as well as the relative orientation between them: 0 if the next neighbour has the same orientation as the face, 1 if it's rotated 90º clockwise...
-
-The set up of the adjacencies as they come on the map is done in the same way for both parts. Then, depending on whether we are in what I called "wrap mode" and "cube mode", the rest of the neighbours are set up accordingly.
-
-For part 1, "wrap mode", I fill the remaining neighborus as the input says: go in the direction opposite to the one I want to fill until I get out of the map, and the last encountered face is the neighbour. All of them have relative orientation 0 according to what I described above.
-
-For part 2, I fold the cube along all of the 90º angles, until all of the neighbours are determined. It was a bit tedious to determine the proper orientations to use, but once finished it's not that bad!
-
+For part 2, I fold the cube along all of the 90º angles, until all of the neighbours are determined. 
+It was a bit tedious to determine the proper orientations to use, but once finished it's not that bad!
 The real tedious part was to set up the next coordinates after moving to a different face. The way I did it it is only required to do so for the different relative orientations of the two neighbours, meaning there are 4x4=16 possibilities, but I didn't see any possibility other than computing them by hand. The nice thing is that these are used for both parts, as for part 1 it's just the same transitions, but they will always have relative orientation 0.
-
 The solution works in both the example and my input. It should fold any cube correctly, but it may fail in some of your inputs if I made a mistake computing the coordinate changes between the faces, since I think not all of them are actually used. If you try it on your input and get the wrong answer let me know so I can check them again :)
 """
 
